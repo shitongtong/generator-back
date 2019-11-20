@@ -1,0 +1,52 @@
+server:
+  servlet:
+    context-path: /genertor-back
+  port: 20000
+
+#日志配置
+logging:
+  config: classpath:logback.xml
+  level:
+      cn.stt.generator.mapper: debug
+
+mybatis:
+  mapper-locations: classpath:sqlmap/*.xml
+  type-aliases-package: cn.stt.generator.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+spring:
+  application:
+    name: genertor-back
+  profiles:
+      active: dev
+
+---
+# 本地开发环境配置
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://10.8.170.129:3306/qppa_znjk?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: znjk
+    password: znjk@WS3ed
+
+#自定义配置
+my:
+  orderUrl:  http://10.8.170.129:10176/work_order_system/pc/toHeavySelect
+  pingUrl:  http://10.8.170.129:10176/smartmonitor-ping/saveOrderAlarmData
+
+
+---
+# 测试环境配置
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:mysql://172.25.241.236:3306/qppa_znjk?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: znjk
+    password: znjk@WS3ed
+
+
+#自定义配置
+my:
+  orderUrl:  http://172.25.241.235:10176/work_order_system/pc/toHeavySelect
+  pingUrl:  http://172.25.241.235:10176/smartmonitor-ping/saveOrderAlarmData
