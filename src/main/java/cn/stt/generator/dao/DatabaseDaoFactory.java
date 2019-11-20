@@ -13,9 +13,9 @@ import cn.stt.generator.enums.DatabaseTypeEnum;
  * @Version 1.0
  */
 public class DatabaseDaoFactory {
-    public static DatabaseDao getDAO(ConnParam connParam) {
-        String upperCaseDbName = connParam.getDbType().toUpperCase();
 
+    public static DatabaseDao getDao(ConnParam connParam) {
+        String upperCaseDbName = connParam.getDbType().toUpperCase();
         if (upperCaseDbName.contains(DBMSConstant.ORACLE)) {
             return new CommonDatabaseDaoImpl(connParam, DatabaseTypeEnum.Oracle);
         } else if (upperCaseDbName.contains(DBMSConstant.SQL_SERVER) || upperCaseDbName.contains(DBMSConstant.SQLSERVER)) {

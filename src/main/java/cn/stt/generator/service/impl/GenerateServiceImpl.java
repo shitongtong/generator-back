@@ -40,7 +40,7 @@ public class GenerateServiceImpl implements GenerateService {
 
     public static final String TABLE = "table";
 
-    public static final String TEMPLATE_MODEL = "/model.btl";
+    public static final String TEMPLATE_ENTITY = "/entity.btl";
     public static final String TEMPLATE_MAPPER = "/mapper.btl";
     public static final String TEMPLATE_SQLMAP = "/sqlMap.btl";
     public static final String TEMPLATE_SERVICE = "/service.btl";
@@ -48,8 +48,8 @@ public class GenerateServiceImpl implements GenerateService {
     public static final String TEMPLATE_CONTROLLER = "/controller.btl";
     public static final String TEMPLATE_VIEW = "/view.btl";
 
-    public static final String PACKAGE_MODEL = "model";
-    public static final String PACKAGE_DAO = "dao";
+    public static final String PACKAGE_ENTITY = "entity";
+    public static final String PACKAGE_MAPPER = "mapper";
     public static final String PACKAGE_SQLMAP = "sqlmap";
     public static final String PACKAGE_SERVICE = "service";
     public static final String PACKAGE_SERVICE_IMPL = "service.impl";
@@ -105,15 +105,15 @@ public class GenerateServiceImpl implements GenerateService {
         GroupTemplate groupTemplate = new GroupTemplate(resourceLoader, configuration);
         for(TableModel tableModel:generateModel.getTableModels()) {
             // 设置各类代码包名
-            tableModel.setModelPackageName(getPakcageName(generateModel.getBasePackage(), PACKAGE_MODEL));
-            tableModel.setDaoPackageName(getPakcageName(generateModel.getBasePackage(), PACKAGE_DAO));
+            tableModel.setModelPackageName(getPakcageName(generateModel.getBasePackage(), PACKAGE_ENTITY));
+            tableModel.setDaoPackageName(getPakcageName(generateModel.getBasePackage(), PACKAGE_MAPPER));
             tableModel.setSqlMapPackageName(getPakcageName(generateModel.getBasePackage(), PACKAGE_SQLMAP));
             tableModel.setServicePackageName(getPakcageName(generateModel.getBasePackage(), PACKAGE_SERVICE));
             tableModel.setServiceImplPackageName(getPakcageName(generateModel.getBasePackage(), PACKAGE_SERVICE_IMPL));
             tableModel.setControllerPackageName(getPakcageName(generateModel.getBasePackage(), PACKAGE_CONTROLLER));
             tableModel.setViewPackageName(getPakcageName(generateModel.getBasePackage(), PACKAGE_VIEW));
             // generate model
-            generateModel(groupTemplate, tableModel, TEMPLATE_MODEL, generateModel.getOutPutFolderPath());
+            generateModel(groupTemplate, tableModel, TEMPLATE_ENTITY, generateModel.getOutPutFolderPath());
             // generate mapper
             generateModel(groupTemplate, tableModel, TEMPLATE_MAPPER, generateModel.getOutPutFolderPath());
             // generate sqlmap.xml

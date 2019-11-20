@@ -17,10 +17,9 @@ public enum DatabaseTypeEnum {
      *
      */
     Oracle {
-
         @Override
         public String getFileName() {
-            return FOLDER + "/Oracle.xml";
+            return "Oracle.xml";
         }
 
         @Override
@@ -33,7 +32,7 @@ public enum DatabaseTypeEnum {
     MySql5 {
         @Override
         public String getFileName() {
-            return FOLDER + "/MySQL5.xml";
+            return "MySQL5.xml";
         }
 
         @Override
@@ -45,11 +44,11 @@ public enum DatabaseTypeEnum {
     MSSQLServer {
         @Override
         public String getFileName() {
-            return FOLDER + "/MSSQL.xml";
+            return "MSSQL.xml";
         }
     };
 
-    private static final String FOLDER	= DatabaseTypeEnum.class.getPackage().getName().replace('.', '/');
+    private static final String FOLDER = DatabaseTypeEnum.class.getPackage().getName().replace('.', '/');
 
     abstract public String getFileName();
 

@@ -49,8 +49,7 @@ public class OracleMetaDataConverter extends CommonMetaDataConverter {
     public Index convertMap2Index(Map<String, String> map) {
         Index index = super.convertMap2Index(map);
         // Oracle的user_indexes的uniqueness字段 as IS_UNIQUE，如果返回的是NONUNIQUE表示可为空
-        index.setUnique("NONUNIQUE".equals(
-                getValue(map, "IS_UNIQUE")) ? false : true);
+        index.setUnique(!"NONUNIQUE".equals(getValue(map, "IS_UNIQUE")));
         return index;
     }
 }

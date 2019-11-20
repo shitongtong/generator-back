@@ -73,9 +73,8 @@ public abstract class AbstractDatabaseDaoImpl implements DatabaseDao {
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnSize = rsmd.getColumnCount();
             while (rs.next()) {
-                Map<String, String> map = new HashMap<String, String>();
+                Map<String, String> map = new HashMap<>();
                 for (int columnIndex = 1; columnIndex <= columnSize; columnIndex++) {
-                    // columnName�Ǵ�д
                     String columnName = rsmd.getColumnLabel(columnIndex);
                     String columnValue = rs.getString(columnName);
                     map.put(columnName, columnValue);
@@ -192,12 +191,12 @@ public abstract class AbstractDatabaseDaoImpl implements DatabaseDao {
                     DaoException.QUERY_INDEX_EXCEPTION, e.getMessage(), e);
         }
 
-        return new LinkedList<Index>(indexMap.values());
+        return new LinkedList<>(indexMap.values());
     }
 
     @Override
     public List<Trigger> getTriggers(String tableName) throws DaoException {
-        List<Trigger> triggers = new LinkedList<Trigger>();
+        List<Trigger> triggers = new LinkedList<>();
 
         try {
             List<Map<String, String>> result = query(getQuerySql(QUERY_TRIGGER),
@@ -217,16 +216,14 @@ public abstract class AbstractDatabaseDaoImpl implements DatabaseDao {
     public Connection openConnection() throws DaoException {
         try {
             closeConnection();
-
             Class.forName(getDriver());
 
             Properties props = new Properties();
             props.put("remarksReporting", "true");
             props.put("user", connParam.getUserName());
             props.put("password", connParam.getPassword());
-            connection = DriverManager.getConnection(
-                    getUrl(connParam.getHost(), connParam.getPort(),
-                            connParam.getDbName()), props);
+            String url = getUrl(connParam.getHost(), connParam.getPort(), connParam.getDbName());
+            connection = DriverManager.getConnection(url, props);
         } catch (ClassNotFoundException e) {
             String errorMsg = "连接创建失败，找不到相关驱动类(" + e.getMessage() + ")";
             throw new DaoException(DaoException.OPEN_CONNECTION_EXCEPTION, errorMsg, e);

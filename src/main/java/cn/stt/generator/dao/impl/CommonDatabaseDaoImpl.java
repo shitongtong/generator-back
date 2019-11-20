@@ -4,8 +4,10 @@ import cn.stt.generator.dao.ConnParam;
 import cn.stt.generator.enums.DatabaseTypeEnum;
 import cn.stt.generator.exception.DaoException;
 import cn.stt.generator.util.Dom4jUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Document;
 import org.dom4j.Element;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,7 +22,9 @@ import java.util.Map;
  * @Date 2019/11/20 8:58
  * @Version 1.0
  */
+@Slf4j
 public class CommonDatabaseDaoImpl extends AbstractDatabaseDaoImpl {
+
     private static final String ELEMENT_DRIVER = DRIVER;
     private static final String ELEMENT_URL = URL;
     private static final String ELEMENT_SELECT = "select";
@@ -28,7 +32,7 @@ public class CommonDatabaseDaoImpl extends AbstractDatabaseDaoImpl {
 
     private String driver;
     private String url;
-    private Map<String, String> selectMap = new HashMap<String, String>();
+    private Map<String, String> selectMap = new HashMap<>();
 
     private DatabaseTypeEnum dbType;
 
@@ -37,7 +41,6 @@ public class CommonDatabaseDaoImpl extends AbstractDatabaseDaoImpl {
      */
     public CommonDatabaseDaoImpl(ConnParam connParam, DatabaseTypeEnum dbType) {
         super(connParam);
-
         setDbType(dbType);
         loadSqlXml(dbType);
     }
@@ -70,22 +73,28 @@ public class CommonDatabaseDaoImpl extends AbstractDatabaseDaoImpl {
 
     @SuppressWarnings("unchecked")
     private void loadSqlXml(DatabaseTypeEnum dbType) {
-        InputStream is = this.getClass().getClassLoader().getResourceAsStream(
-                dbType.getFileName());
-        Document doc = Dom4jUtil.getDocument(is);
+        InputStream inputStream = null;
+        try {
+            ClassPathResource resource = new ClassPathResource(dbType.getFileName());
+            inputStream = resource.getInputStream();
+        } catch (IOException e) {
+            log.error("", e);
+        }
+        Document doc = Dom4jUtil.getDocument(inputStream);
         if (doc != null) {
             Element root = doc.getRootElement();
-
             driver = root.elementText(ELEMENT_DRIVER);
             url = root.elementText(ELEMENT_URL);
-
             for (Element selectElem : (List<Element>) root.elements(ELEMENT_SELECT)) {
                 selectMap.put(selectElem.attributeValue(ATTRIBUTE_NAME), selectElem.getTextTrim());
             }
         }
-        try {
-            is.close();
-        } catch (IOException e) {
+        if (inputStream != null) {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                log.error("", e);
+            }
         }
     }
 }

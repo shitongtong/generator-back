@@ -1,9 +1,9 @@
 package cn.stt.generator.request;
 
 import cn.stt.generator.dao.ConnParam;
+import cn.stt.generator.model.TableModel;
 import lombok.Data;
 
-import javax.swing.table.TableModel;
 import java.util.ArrayList;
 import java.util.List;
 

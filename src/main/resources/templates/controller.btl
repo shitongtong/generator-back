@@ -16,15 +16,14 @@ import com.louis.kitty.core.page.PageRequest;
 import ${table.modelPackageName}.${table.className};
 import ${table.servicePackageName}.${table.className}Service;
 
+
 /**
- * ---------------------------
- * ${table.description} (${table.className}Controller)         
- * ---------------------------
- * 作者：  kitty-generator
- * 时间：  ${strutil.formatDate(date(),'yyyy-MM-dd HH:mm:ss')}
- * 说明：  我是由代码生成器生生成的
- * ---------------------------
- */
+* @ClassName ${table.className}Controller
+* @Description ${table.description} (${table.className}Controller)
+* @Author shitt7
+* @Date ${strutil.formatDate(date(),'yyyy-MM-dd HH:mm:ss')}
+* @Version 1.0
+*/
 @RestController
 @RequestMapping("${table.objectName}")
 public class ${table.className}Controller {

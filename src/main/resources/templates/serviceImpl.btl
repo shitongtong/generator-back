@@ -5,23 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.louis.kitty.core.page.MybatisPageHelper;
-import com.louis.kitty.core.page.PageRequest;
-import com.louis.kitty.core.page.PageResult;
 
 import ${table.modelPackageName}.${table.className};
 import ${table.daoPackageName}.${table.className}Mapper;
 import ${table.servicePackageName}.${table.className}Service;
 
 /**
- * ---------------------------
- * ${table.description} (${table.className}ServiceImpl)         
- * ---------------------------
- * 作者：  kitty-generator
- * 时间：  ${strutil.formatDate(date(),'yyyy-MM-dd HH:mm:ss')}
- * 说明：  我是由代码生成器生生成的
- * ---------------------------
- */
+* @ClassName ${table.className}Controller
+* @Description ${table.description} (${table.className}Controller)
+* @Author shitt7
+* @Date ${strutil.formatDate(date(),'yyyy-MM-dd HH:mm:ss')}
+* @Version 1.0
+*/
 @Service
 public class ${table.className}ServiceImpl implements ${table.className}Service {
 

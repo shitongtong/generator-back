@@ -7,6 +7,8 @@ import org.dom4j.Namespace;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,7 +29,7 @@ import java.util.Map;
  * @Version 1.0
  */
 public class Dom4jUtil {
-    public static String nameSpacePrefix = null;
+    private static final Logger LOGGER = LoggerFactory.getLogger(Dom4jUtil.class);
     private static String nameSpace = null;
 
     private Dom4jUtil() {
@@ -52,14 +54,14 @@ public class Dom4jUtil {
      */
     public static Document getDocument(String filePath) {
         if (!new File(filePath).exists()) {
-            System.out.println(filePath + " is not exist!");
+            LOGGER.info("{} is not exist!", filePath);
             return null;
         }
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(filePath);
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("", e);
         }
         return getDocument(fis);
     }
@@ -74,28 +76,24 @@ public class Dom4jUtil {
         Document document = null;
         if (input != null) {
             try {
-
                 SAXReader saxReader = new SAXReader();
                 saxReader.setEncoding(CommonConstant.ENCODING_UTF8);
                 DocumentFactory df = new DocumentFactory();
-                Map<String, String> map = new HashMap<String, String>();
+                Map<String, String> map = new HashMap<>();
                 df.setXPathNamespaceURIs(map);
                 saxReader.setDocumentFactory(df);
                 document = saxReader.read(input);
                 if (document.getRootElement().getNamespace() != Namespace.NO_NAMESPACE) {
                     nameSpace = "nameSpace";
-                    nameSpacePrefix = nameSpace + ":";
                     map.put(nameSpace, document.getRootElement().getNamespace().getURI());
                 }
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                LOGGER.error("", e);
             } finally {
-                if (input != null) {
-                    try {
-                        input.close();
-                    } catch (IOException e) {
-                        System.out.println(e.getMessage());
-                    }
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    LOGGER.error("", e);
                 }
             }
         }
@@ -128,7 +126,7 @@ public class Dom4jUtil {
             output.write(document);
             output.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("", e);
         }
     }
 
@@ -179,7 +177,6 @@ public class Dom4jUtil {
         } else {
             newXPath = xPath;
         }
-
         return newXPath;
     }
 }
