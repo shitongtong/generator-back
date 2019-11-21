@@ -3,8 +3,8 @@ package ${table.servicePackageName};
 import ${table.modelPackageName}.${table.className};
 
 /**
-* @ClassName ${table.className}Controller
-* @Description ${table.description} (${table.className}Controller)
+* @ClassName ${table.className}Service
+* @Description ${table.description} (${table.className}Service)
 * @Author shitt7
 * @Date ${strutil.formatDate(date(),'yyyy-MM-dd HH:mm:ss')}
 * @Version 1.0

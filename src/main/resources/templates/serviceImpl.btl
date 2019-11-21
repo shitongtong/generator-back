@@ -11,8 +11,8 @@ import ${table.daoPackageName}.${table.className}Mapper;
 import ${table.servicePackageName}.${table.className}Service;
 
 /**
-* @ClassName ${table.className}Controller
-* @Description ${table.description} (${table.className}Controller)
+* @ClassName ${table.className}ServiceImpl
+* @Description ${table.description} (${table.className}ServiceImpl)
 * @Author shitt7
 * @Date ${strutil.formatDate(date(),'yyyy-MM-dd HH:mm:ss')}
 * @Version 1.0

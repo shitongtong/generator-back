@@ -17,7 +17,17 @@
 	}
 %>
   </resultMap>
-  
+
+  <sql id="Base_Column_List" >
+<%
+for(column in table.columns) {
+%>
+    ${column.name},
+<%
+}
+%>
+  </sql>
+
   <insert id="add" parameterType="${table.modelPackageName}.${table.className}">
     insert into ${table.name}
     <trim prefix="(" suffix=")" suffixOverrides=",">
